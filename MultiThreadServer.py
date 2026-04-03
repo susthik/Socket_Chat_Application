@@ -3,7 +3,8 @@ import threading
 
 
 clients={}
-        
+
+#Recive msg Form Client       
 def recv_msg(client):
     buffer=""
     
@@ -16,7 +17,7 @@ def recv_msg(client):
                 msg = msg.strip()
                 m = f"{clients.get(client, 'unkownUser')}:{msg}\n"
                 print(m,end="")
-                cast(m, client)
+                cast(m, client) # Boadcast To Another User's
                 if msg.lower() == "exit" :
                     client.close()
                     exitmsg = f"{clients.get(client, 'unkownUser')} has disconnected"
@@ -26,7 +27,7 @@ def recv_msg(client):
             print("recv_verror!")
             break
 
-
+# Recive the Msg Boadcast to connected User's
 def cast(msg, sender=None):
     try:
         for client in clients:
@@ -34,7 +35,8 @@ def cast(msg, sender=None):
                 client.sendall(msg.encode())
     except :
         print("msg not sended\n")
-            
+
+# Handle the Multiple client at Time          
 def client_handler(client, addr):
     
     buffer = ""
@@ -68,7 +70,7 @@ def client_handler(client, addr):
     
    
 
-
+#Socket Configaration
 def start_server():
 
     host="0.0.0.0"
@@ -90,9 +92,7 @@ def start_server():
         except RuntimeError as e:
             print(e,"??")
             
-            
-            
-                     
+                               
 start_server()
 
     

@@ -1,6 +1,7 @@
 import socket
 import threading
 
+# Recive The Msg From user Through server
 def receive_messages(sock):
     while True:
         try:
@@ -11,7 +12,7 @@ def receive_messages(sock):
             print("Disconnected from server.")
             sock.close()
             break
-
+# send Msg to group
 def send_messages(sock, username):
     while True:
         msg = input("\n you:")
