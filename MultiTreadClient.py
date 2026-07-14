@@ -8,26 +8,27 @@ def receive_messages(sock):
             msg = sock.recv(1024).decode()
             if msg:
                 print("\n" + msg)
+                print(">")
         except:
             print("Disconnected from server.")
             sock.close()
+            exit(0)
             break
 # send Msg to group
 def send_messages(sock, username):
     while True:
         msg = input("\n you:")
-        sock.send(msg.encode())
+        sock.send((msg + "\n").encode())
         if msg == "exit" or msg == "quit" :
             sock.close()
-            sexit(0)
+            exit(0)
 
 # Connect to server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(("172.30.17.163", 12345))
-
-username = input("Enter your username: ")
-client.send(username.encode())
-
+client.connect(("127.168.0.0", 4343))
+print(client.recv(1024).decode())
+username =input("UeserName:")
+client.send((username +"\n").encode())
 print(f"Connected as {username}")
 
 # Start threads
