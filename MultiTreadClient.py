@@ -8,7 +8,6 @@ def receive_messages(sock):
             msg = sock.recv(1024).decode()
             if msg:
                 print("\n" + msg)
-                print(">")
         except:
             print("Disconnected from server.")
             sock.close()

@@ -22,6 +22,7 @@ def recv_msg(client):
                     client.close()
                     exitmsg = f"{clients.get(client, 'unkownUser')} has disconnected"
                     cast(exitmsg ,client)
+                    clients.pop(client,0)
                     break
         except ConnectionResetError:
             print("recv_verror!")
@@ -34,7 +35,7 @@ def cast(msg, sender=None):
             if client != sender:
                 client.sendall(msg.encode())
     except :
-        print("msg not sended\n")
+        print("cast!=\n")
 
 # Handle the Multiple client at Time          
 def client_handler(client, addr):
